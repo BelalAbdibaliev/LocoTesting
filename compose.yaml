@@ -1,0 +1,17 @@
+﻿services:
+  postgres:
+    image: postgres:15
+    container_name: TestingApplicationDb-container
+    restart: always
+    environment:
+      POSTGRES_USER: flacko
+      POSTGRES_PASSWORD: flacko
+      POSTGRES_DB: TestingApplicationDb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
