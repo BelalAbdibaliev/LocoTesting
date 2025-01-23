@@ -14,17 +14,14 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly TokenGeneratorService _tokenGenerator;
-    private readonly IEmailValidator _emailValidator;
     private readonly ILogger<AuthService> _logger;
 
     public AuthService(UserManager<AppUser> userManager, 
         TokenGeneratorService tokenGenerator,
-        IEmailValidator emailValidator,
         ILogger<AuthService> logger)
     {
         _userManager = userManager;
         _tokenGenerator = tokenGenerator;
-        _emailValidator = emailValidator;
         _logger = logger;
     }
 
@@ -37,8 +34,10 @@ public class AuthService : IAuthService
         {
             user = new AppUser
             {
-                UserName = payload.Name,
+                UserName = googleAuthDto.UniqueUserName,
                 Email = payload.Email,
+                FirstName = googleAuthDto.FirstName,
+                LastName = googleAuthDto.LastName,
             };
             
             var creationResult = await _userManager.CreateAsync(user);

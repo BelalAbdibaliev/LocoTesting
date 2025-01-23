@@ -71,7 +71,6 @@ public static class DependencyInjection
         });
         
         services.AddScoped<TokenGeneratorService>();
-        services.AddScoped<IEmailValidator, EmailValidator>();
         
         services.AddHttpContextAccessor();
         
