@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using LocoTesting.Domain.Models;
 using LocoTesting.Infrastructure.DataAccess;
+using LocoTesting.Infrastructure.Repositories;
 using LocoTesting.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -71,6 +72,7 @@ public static class DependencyInjection
         });
         
         services.AddScoped<TokenGeneratorService>();
+        services.AddScoped<ITestRepository, TestRepository>();
         
         services.AddHttpContextAccessor();
         
