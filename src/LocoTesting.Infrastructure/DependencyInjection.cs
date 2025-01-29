@@ -18,6 +18,8 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddProblemDetails();
+        
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"),
@@ -73,6 +75,8 @@ public static class DependencyInjection
         
         services.AddScoped<TokenGeneratorService>();
         services.AddScoped<ITestRepository, TestRepository>();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+
         
         services.AddHttpContextAccessor();
         

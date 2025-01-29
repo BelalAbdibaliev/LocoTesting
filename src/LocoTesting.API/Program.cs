@@ -42,6 +42,7 @@ if (app.Environment.IsDevelopment())
     }
 }
 
+app.UseExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
