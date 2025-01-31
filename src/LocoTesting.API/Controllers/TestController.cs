@@ -53,4 +53,11 @@ public class TestController: ControllerBase
         var createdAnswer = await _testService.AddAnswerAsync(createAnswerDto);
         return Ok(createdAnswer);
     }
+
+    [HttpGet("getallquestions")]
+    public async Task<ActionResult> GetAllQuestionsAsync([FromQuery] int testId)
+    {
+        var questions = await _testService.GetAllQuestionsAsync(testId);
+        return Ok(questions);
+    }
 }

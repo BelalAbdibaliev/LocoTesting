@@ -29,6 +29,26 @@ public class TestService : ITestService
         return testDtos;
     }
 
+    public async Task<List<QuestionDto>?> GetAllQuestionsAsync(int testId)
+    {
+        var questions = await _testRepository.GetQuestionsAsync(testId);
+        
+        var questionsDto = questions.Select(a => new QuestionDto
+        {
+            Id = a.Id,
+            Text = a.Text,
+            Content = a.Content,
+            TestId = a.TestId,
+            Answers = a.Answers.Select(b => new AnswerDto
+            {
+                IsCorrect = b.IsCorrect,
+                Text = b.Text,
+            }).ToList(),
+        }).ToList();
+        
+        return questionsDto;
+    }
+
     public async Task<TestDto> AddTestAsync(CreateTestDto dto)
     {
         if(dto == null)

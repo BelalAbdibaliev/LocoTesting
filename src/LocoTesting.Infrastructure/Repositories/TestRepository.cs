@@ -10,6 +10,7 @@ public interface ITestRepository
     Task<Test?> CreateTestAsync(Test test);
     Task<Question?> CreateQuestionAsync(Question question);
     Task<Answer?> CreateAnswerAsync(Answer answer);
+    Task<List<Question>?> GetQuestionsAsync(int testId);
 }
 
 public class TestRepository: ITestRepository
@@ -52,5 +53,15 @@ public class TestRepository: ITestRepository
         await _dbContext.SaveChangesAsync();
         
         return await _dbContext.Answers.FirstAsync(a => a.Id == answer.Id);
+    }
+
+    public async Task<List<Question>?> GetQuestionsAsync(int testId)
+    {
+        var questions = await _dbContext.Questions
+            .Where(q => q.TestId == testId)
+            .Include(a => a.Answers)
+            .ToListAsync();
+        
+        return questions;
     }
 }
