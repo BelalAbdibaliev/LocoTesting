@@ -29,7 +29,7 @@ public class TestService : ITestService
         return testDtos;
     }
 
-    public async Task<TestDto> CreateTestAsync(CreateTestDto dto)
+    public async Task<TestDto> AddTestAsync(CreateTestDto dto)
     {
         var test = new Test
         {
@@ -46,7 +46,7 @@ public class TestService : ITestService
         };
     }
 
-    public async Task<QuestionDto> CreateQuestionAsync(CreateQuestionDto dto)
+    public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto)
     {
         var question = new Question
         {
@@ -73,6 +73,26 @@ public class TestService : ITestService
                 Text = a.Text,
                 IsCorrect = a.IsCorrect
             }).ToList()
+        };
+    }
+
+    public async Task<AnswerDto> AddAnswerAsync(CreateAnswerDto dto)
+    {
+        var answer = new Answer
+        {
+            Text = dto.Text,
+            IsCorrect = dto.IsCorrect,
+            QuestionId = dto.QuestionId,
+        };
+        
+        var result = await _testRepository.CreateAnswerAsync(answer);
+        if(result == null)
+            throw new NullReferenceException("Bad shit happened");
+
+        return new AnswerDto
+        {
+            Text = result.Text,
+            IsCorrect = result.IsCorrect
         };
     }
 }

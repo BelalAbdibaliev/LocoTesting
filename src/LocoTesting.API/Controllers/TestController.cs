@@ -30,7 +30,7 @@ public class TestController: ControllerBase
         if (!ModelState.IsValid)
             return BadRequest();
         
-        var createdTest = await _testService.CreateTestAsync(createTestDto);
+        var createdTest = await _testService.AddTestAsync(createTestDto);
         return Ok(createdTest);
     }
 
@@ -40,7 +40,17 @@ public class TestController: ControllerBase
         if (!ModelState.IsValid)
             return BadRequest();
         
-        var createdQuestion = await _testService.CreateQuestionAsync(createQuestionDto);
+        var createdQuestion = await _testService.AddQuestionAsync(createQuestionDto);
         return Ok(createdQuestion);
+    }
+
+    [HttpPost("addanswer")]
+    public async Task<ActionResult> AddAnswerAsync([FromBody] CreateAnswerDto createAnswerDto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+        
+        var createdAnswer = await _testService.AddAnswerAsync(createAnswerDto);
+        return Ok(createdAnswer);
     }
 }

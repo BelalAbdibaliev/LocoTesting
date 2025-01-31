@@ -13,9 +13,6 @@ using Microsoft.Extensions.Logging;
 
 namespace LocoTesting.Infrastructure.Services;
 
-/// <summary>
-/// Глобальный обработчик исключений.
-/// </summary>
 public class GlobalExceptionHandler(IHostEnvironment env, ILogger<GlobalExceptionHandler> logger)
     : IExceptionHandler
 {
@@ -56,7 +53,6 @@ public class GlobalExceptionHandler(IHostEnvironment env, ILogger<GlobalExceptio
 
     private ProblemDetails CreateProblemDetails(HttpContext context, Exception exception)
     {
-        // Получаем HTTP-статус по типу исключения
         var statusCode = GetStatusCodeForException(exception);
 
         var reasonPhrase = ReasonPhrases.GetReasonPhrase((int)statusCode) ?? UnhandledExceptionMsg;
@@ -92,22 +88,16 @@ public class GlobalExceptionHandler(IHostEnvironment env, ILogger<GlobalExceptio
 
         return problemDetails;
     }
-
-    /// <summary>
-    /// Возвращает соответствующий HTTP-статус для исключения.
-    /// Если исключение неизвестно, возвращает 500.
-    /// </summary>
+    
     private static HttpStatusCode GetStatusCodeForException(Exception exception)
     {
         var exceptionType = exception.GetType();
 
-        // Проверяем, есть ли в словаре статус для текущего типа исключения
         if (ExceptionStatusCodes.TryGetValue(exceptionType, out var statusCode))
         {
             return statusCode;
         }
-
-        // Если нет точного соответствия, проверяем базовые типы исключения (например, CustomException : ArgumentException)
+        
         var baseExceptionType = exceptionType.BaseType;
         while (baseExceptionType != null && baseExceptionType != typeof(Exception))
         {
