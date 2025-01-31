@@ -31,6 +31,9 @@ public class TestService : ITestService
 
     public async Task<TestDto> AddTestAsync(CreateTestDto dto)
     {
+        if(dto == null)
+            throw new ArgumentNullException("DTO cannot be null");
+        
         var test = new Test
         {
             Title = dto.Title,
@@ -48,6 +51,9 @@ public class TestService : ITestService
 
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto)
     {
+        if(dto == null)
+            throw new ArgumentNullException("DTO cannot be null");
+        
         var question = new Question
         {
             Text = dto.Question,
@@ -78,6 +84,9 @@ public class TestService : ITestService
 
     public async Task<AnswerDto> AddAnswerAsync(CreateAnswerDto dto)
     {
+        if(dto == null)
+            throw new ArgumentNullException("DTO cannot be null");
+        
         var answer = new Answer
         {
             Text = dto.Text,
