@@ -7,6 +7,8 @@ namespace LocoTesting.Infrastructure.Repositories;
 public interface ITestRepository
 {
     Task<List<Test>?> GetAllTestsAsync();
+    Task<Test?> GetTestByIdAsync(int id);
+    Task<bool> CheckTestExistsAsync(int id);
     Task<Test?> CreateTestAsync(Test test);
     Task<Question?> CreateQuestionAsync(Question question);
     Task<Answer?> CreateAnswerAsync(Answer answer);
@@ -28,6 +30,19 @@ public class TestRepository: ITestRepository
         
         return tests;
     }
+
+    public async Task<Test?> GetTestByIdAsync(int id)
+    {
+        var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == id);
+        
+        return test;
+    }
+
+    public async Task<bool> CheckTestExistsAsync(int id)
+    {
+        return await _dbContext.Tests.AnyAsync(t => t.Id == id);
+    }
+
 
     public async Task<Test?> CreateTestAsync(Test test)
     {

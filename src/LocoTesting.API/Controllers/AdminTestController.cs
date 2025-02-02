@@ -6,22 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace LocoTesting.API.Controllers;
 
 [ApiController]
-[Route("tests/")]
-public class TestController: ControllerBase
+[Route("tests-admin/")]
+public class AdminTestController: ControllerBase
 {
-    private readonly ILogger<TestController> _logger;
+    private readonly ILogger<AdminTestController> _logger;
     private readonly ITestService _testService;
 
-    public TestController(ILogger<TestController> logger, ITestService testService)
+    public AdminTestController(ILogger<AdminTestController> logger, ITestService testService)
     {
         _logger = logger;
         _testService = testService;
-    }
-    
-    [HttpGet("getall")]
-    public async Task<ActionResult> GetAllAsync()
-    {
-        return Ok(await _testService.GetAllTestsAsync());
     }
 
     [HttpPost("create")]
@@ -52,12 +46,5 @@ public class TestController: ControllerBase
         
         var createdAnswer = await _testService.AddAnswerAsync(createAnswerDto);
         return Ok(createdAnswer);
-    }
-
-    [HttpGet("getallquestions")]
-    public async Task<ActionResult> GetAllQuestionsAsync([FromQuery] int testId)
-    {
-        var questions = await _testService.GetAllQuestionsAsync(testId);
-        return Ok(questions);
     }
 }
