@@ -9,6 +9,8 @@ public interface ITestRepository
     Task<List<Test>?> GetAllTestsAsync();
     Task<Test?> GetTestByIdAsync(int id);
     Task<bool> CheckTestExistsAsync(int id);
+    Task<bool> CheckQuestionExistsAsync(int id);
+    Task<bool> CheckIsTrueAnswerExists(int questionId);
     Task<Test?> CreateTestAsync(Test test);
     Task<Question?> CreateQuestionAsync(Question question);
     Task<Answer?> CreateAnswerAsync(Answer answer);
@@ -43,6 +45,18 @@ public class TestRepository: ITestRepository
         return await _dbContext.Tests.AnyAsync(t => t.Id == id);
     }
 
+    public async Task<bool> CheckQuestionExistsAsync(int id)
+    {
+        return await _dbContext.Questions.AnyAsync(t => t.Id == id);
+    }
+
+    public async Task<bool> CheckIsTrueAnswerExists(int questionId)
+    {
+        var answer = _dbContext.Answers
+            .Where(t => t.QuestionId == questionId)
+            .AsQueryable();
+        return await answer.Where(t => t.IsCorrect == true).AnyAsync();
+    }
 
     public async Task<Test?> CreateTestAsync(Test test)
     {

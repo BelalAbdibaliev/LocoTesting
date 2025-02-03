@@ -112,6 +112,12 @@ public class TestService : ITestService
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
         
+        if(!await _testRepository.CheckQuestionExistsAsync(dto.QuestionId))
+            throw new KeyNotFoundException("Question does not exist");
+        
+        if(dto.IsCorrect && await _testRepository.CheckIsTrueAnswerExists(dto.QuestionId))
+            throw new ArgumentException("True answer already exists");
+        
         var answer = new Answer
         {
             Text = dto.Text,
