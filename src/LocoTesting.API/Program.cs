@@ -3,6 +3,7 @@ using LocoTesting.Application;
 using LocoTesting.Domain.Models;
 using LocoTesting.Infrastructure;
 using LocoTesting.Infrastructure.DataAccess;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
@@ -42,7 +43,7 @@ if (app.Environment.IsDevelopment())
     }
 }
 
-app.UseExceptionHandler();
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");

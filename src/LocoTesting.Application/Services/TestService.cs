@@ -32,7 +32,7 @@ public class TestService : ITestService
     public async Task<List<QuestionDto>?> GetAllQuestionsAsync(int testId)
     {
         if(!await _testRepository.CheckTestExistsAsync(testId))
-            throw new NullReferenceException();
+            throw new KeyNotFoundException("Test does not exist");
         
         var questions = await _testRepository.GetQuestionsAsync(testId);
         
@@ -77,7 +77,7 @@ public class TestService : ITestService
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
         if(!await _testRepository.CheckTestExistsAsync(dto.TestId))
-            throw new NullReferenceException("Test does not exist");
+            throw new KeyNotFoundException("Test does not exist");
         
         var question = new Question
         {
