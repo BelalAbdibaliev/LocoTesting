@@ -1,6 +1,6 @@
 ﻿using LocoTesting.Application.Dtos.Auth;
 
-namespace LocoTesting.Application.Interfaces;
+namespace LocoTesting.Application.Interfaces.Services;
 
 public interface IAuthService
 {

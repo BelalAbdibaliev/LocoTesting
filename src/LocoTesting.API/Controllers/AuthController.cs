@@ -1,7 +1,5 @@
-﻿using Google.Apis.Auth;
-using LocoTesting.Application.Dtos.Auth;
-using LocoTesting.Application.Interfaces;
-using LocoTesting.Infrastructure.Services;
+﻿using LocoTesting.Application.Dtos.Auth;
+using LocoTesting.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocoTesting.API.Controllers;

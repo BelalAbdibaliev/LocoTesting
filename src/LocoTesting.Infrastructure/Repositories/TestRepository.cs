@@ -1,21 +1,9 @@
-﻿using LocoTesting.Domain.Models;
+﻿using LocoTesting.Application.Interfaces.Repositories;
+using LocoTesting.Domain.Models;
 using LocoTesting.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocoTesting.Infrastructure.Repositories;
-
-public interface ITestRepository
-{
-    Task<List<Test>?> GetAllTestsAsync();
-    Task<Test?> GetTestByIdAsync(int id);
-    Task<bool> CheckTestExistsAsync(int id);
-    Task<bool> CheckQuestionExistsAsync(int id);
-    Task<bool> CheckIsTrueAnswerExists(int questionId);
-    Task<Test?> CreateTestAsync(Test test);
-    Task<Question?> CreateQuestionAsync(Question question);
-    Task<Answer?> CreateAnswerAsync(Answer answer);
-    Task<List<Question>?> GetQuestionsAsync(int testId);
-}
 
 public class TestRepository: ITestRepository
 {

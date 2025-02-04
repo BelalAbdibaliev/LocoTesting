@@ -1,11 +1,6 @@
-using System.Reflection;
-using LocoTesting.Application;
-using LocoTesting.Domain.Models;
+using LocoTesting.Application.Interfaces.Services;
+using LocoTesting.Application.Services;
 using LocoTesting.Infrastructure;
-using LocoTesting.Infrastructure.DataAccess;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +12,6 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerWithAuth();
 
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication();
 
 builder.Services.AddCors(options =>
 {
@@ -28,6 +22,9 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+builder.Services.AddScoped<ITestService, TestService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

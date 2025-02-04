@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using LocoTesting.Application.Interfaces.Repositories;
+using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Domain.Models;
 using LocoTesting.Infrastructure.DataAccess;
 using LocoTesting.Infrastructure.Repositories;
@@ -71,8 +73,8 @@ public static class DependencyInjection
                 policy => policy.RequireRole("Moderator"));
         });
         
-        services.AddScoped<TokenGeneratorService>();
         services.AddScoped<ITestRepository, TestRepository>();
+        services.AddScoped<ITokenGenerator, TokenGenerator>();
         services.AddProblemDetails();
 
         

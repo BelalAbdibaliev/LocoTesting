@@ -1,4 +1,4 @@
-﻿using LocoTesting.Application.Interfaces;
+﻿using LocoTesting.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocoTesting.API.Controllers;

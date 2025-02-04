@@ -1,9 +1,7 @@
-﻿using System.Data;
-using Google.Apis.Auth;
+﻿using Google.Apis.Auth;
 using LocoTesting.Application.Dtos.Auth;
-using LocoTesting.Application.Interfaces;
+using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Domain.Models;
-using LocoTesting.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -13,11 +11,11 @@ namespace LocoTesting.Application.Services;
 public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly TokenGeneratorService _tokenGenerator;
+    private readonly ITokenGenerator _tokenGenerator;
     private readonly ILogger<AuthService> _logger;
 
     public AuthService(UserManager<AppUser> userManager, 
-        TokenGeneratorService tokenGenerator,
+        ITokenGenerator tokenGenerator,
         ILogger<AuthService> logger)
     {
         _userManager = userManager;

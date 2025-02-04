@@ -1,17 +1,18 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LocoTesting.Infrastructure.Services;
 
-public class TokenGeneratorService
+public class TokenGenerator: ITokenGenerator
 {
     private readonly IConfiguration _configuration;
 
-    public TokenGeneratorService(IConfiguration configuration)
+    public TokenGenerator(IConfiguration configuration)
     {
         _configuration = configuration;
     }

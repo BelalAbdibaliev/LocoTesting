@@ -1,8 +1,7 @@
-﻿using System.Net.Mime;
-using LocoTesting.Application.Dtos.Test;
-using LocoTesting.Application.Interfaces;
+﻿using LocoTesting.Application.Dtos.Test;
+using LocoTesting.Application.Interfaces.Repositories;
+using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Domain.Models;
-using LocoTesting.Infrastructure.Repositories;
 
 namespace LocoTesting.Application.Services;
 

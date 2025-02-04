@@ -1,6 +1,5 @@
 ﻿using LocoTesting.Application.Dtos.Test;
-using LocoTesting.Application.Interfaces;
-using LocoTesting.Domain.Models;
+using LocoTesting.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocoTesting.API.Controllers;

@@ -1,6 +1,6 @@
 ﻿using LocoTesting.Application.Dtos.Test;
 
-namespace LocoTesting.Application.Interfaces;
+namespace LocoTesting.Application.Interfaces.Services;
 
 public interface ITestService
 {
