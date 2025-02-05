@@ -30,21 +30,22 @@ public class TestService : ITestService
         return testDtos;
     }
 
-    public async Task<List<QuestionDto>?> GetAllQuestionsAsync(int testId)
+    public async Task<List<QuestionResponseDto>?> GetAllQuestionsAsync(int testId)
     {
         if(!await _testRepository.CheckTestExistsAsync(testId))
             throw new KeyNotFoundException("Test does not exist");
         
         var questions = await _testRepository.GetQuestionsAsync(testId);
         
-        var questionsDto = questions.Select(a => new QuestionDto
+        var questionsDto = questions.Select(a => new QuestionResponseDto
         {
             Id = a.Id,
             Text = a.Text,
             Content = a.Content,
             TestId = a.TestId,
-            Answers = a.Answers.Select(b => new AnswerDto
+            Answers = a.Answers.Select(b => new AnswerResponseDto()
             {
+                Id = b.Id,
                 IsCorrect = b.IsCorrect,
                 Text = b.Text,
             }).ToList(),
@@ -73,7 +74,7 @@ public class TestService : ITestService
         };
     }
 
-    public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto)
+    public async Task<QuestionResponseDto> AddQuestionAsync(CreateQuestionDto dto)
     {
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
@@ -94,14 +95,15 @@ public class TestService : ITestService
         
         var result = await _testRepository.CreateQuestionAsync(question);
         
-        return new QuestionDto
+        return new QuestionResponseDto
         {
             Id = result.Id,
             Text = result.Text,
             Content = result.Content,
             TestId = result.TestId,
-            Answers = result.Answers.Select(a => new AnswerDto
+            Answers = result.Answers.Select(a => new AnswerResponseDto()
             {
+                Id = a.Id,
                 Text = a.Text,
                 IsCorrect = a.IsCorrect
             }).ToList()
