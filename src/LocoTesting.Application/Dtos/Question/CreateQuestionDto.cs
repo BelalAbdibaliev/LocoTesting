@@ -12,6 +12,4 @@ public class CreateQuestionDto
     public string Question { get; set; }
     
     public string Content { get; set; }
-    
-    public List<OptionDto> AnswersDto { get; set; } = new List<OptionDto>();
 }

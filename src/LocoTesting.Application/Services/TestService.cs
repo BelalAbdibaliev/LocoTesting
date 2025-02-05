@@ -86,11 +86,6 @@ public class TestService : ITestService
             Text = dto.Question,
             Content = dto.Content,
             TestId = dto.TestId,
-            Options = dto.AnswersDto.Select(a => new Option
-            {
-                Text = a.Text,
-                IsCorrect = a.IsCorrect,
-            }).ToList()
         };
         
         var result = await _testRepository.CreateQuestionAsync(question);
