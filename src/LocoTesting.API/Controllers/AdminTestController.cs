@@ -1,4 +1,6 @@
-﻿using LocoTesting.Application.Dtos.Test;
+﻿using LocoTesting.Application.Dtos.Answer;
+using LocoTesting.Application.Dtos.Question;
+using LocoTesting.Application.Dtos.Test;
 using LocoTesting.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 

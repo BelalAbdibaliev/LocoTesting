@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LocoTesting.Application.Dtos.Test;
+namespace LocoTesting.Application.Dtos.Answer;
 
 public class CreateAnswerDto
 {
