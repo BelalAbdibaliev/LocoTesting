@@ -1,4 +1,4 @@
-﻿namespace LocoTesting.Application.Dtos.Answer;
+﻿namespace LocoTesting.Application.Dtos.Option;
 
 public class CheckAnswerDto
 {

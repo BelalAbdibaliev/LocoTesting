@@ -1,4 +1,4 @@
-﻿using LocoTesting.Application.Dtos.Answer;
+﻿using LocoTesting.Application.Dtos.Option;
 using LocoTesting.Application.Dtos.Question;
 using LocoTesting.Application.Dtos.Test;
 using LocoTesting.Application.Interfaces.Services;
@@ -40,12 +40,12 @@ public class AdminTestController: ControllerBase
     }
 
     [HttpPost("addanswer")]
-    public async Task<ActionResult> AddAnswerAsync([FromBody] CreateAnswerDto createAnswerDto)
+    public async Task<ActionResult> AddAnswerAsync([FromBody] CreateOptionDto createOptionDto)
     {
         if (!ModelState.IsValid)
             return BadRequest();
         
-        var createdAnswer = await _testService.AddAnswerAsync(createAnswerDto);
+        var createdAnswer = await _testService.AddAnswerAsync(createOptionDto);
         return Ok(createdAnswer);
     }
 }

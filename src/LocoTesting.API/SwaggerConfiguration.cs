@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Reflection;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
+
+namespace LocoTesting.API;
 
 public static class SwaggerConfiguration
 {
@@ -23,8 +24,8 @@ public static class SwaggerConfiguration
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the Bearer scheme.\r\n\r\n" +
-                            "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
-                            "Example: Bearer 12345abcdef",
+                              "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
+                              "Example: Bearer 12345abcdef",
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,

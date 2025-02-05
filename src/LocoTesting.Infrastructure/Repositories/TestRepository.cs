@@ -38,9 +38,9 @@ public class TestRepository: ITestRepository
         return await _dbContext.Questions.AnyAsync(t => t.Id == id);
     }
 
-    public async Task<bool> CheckIsTrueAnswerExists(int questionId)
+    public async Task<bool> CheckIsTrueOptionExists(int questionId)
     {
-        var answer = _dbContext.Answers
+        var answer = _dbContext.Options
             .Where(t => t.QuestionId == questionId)
             .AsQueryable();
         return await answer.Where(t => t.IsCorrect == true).AnyAsync();
@@ -60,23 +60,23 @@ public class TestRepository: ITestRepository
         await _dbContext.SaveChangesAsync();
         
         return await _dbContext.Questions
-            .Include(q => q.Answers)
+            .Include(q => q.Options)
             .FirstAsync(q => q.Id == question.Id);
     }
 
-    public async Task<Answer?> CreateAnswerAsync(Answer answer)
+    public async Task<Option?> CreateOptionAsync(Option option)
     {
-        await _dbContext.Answers.AddAsync(answer);
+        await _dbContext.Options.AddAsync(option);
         await _dbContext.SaveChangesAsync();
         
-        return await _dbContext.Answers.FirstAsync(a => a.Id == answer.Id);
+        return await _dbContext.Options.FirstAsync(a => a.Id == option.Id);
     }
 
     public async Task<List<Question>?> GetQuestionsAsync(int testId)
     {
         var questions = await _dbContext.Questions
             .Where(q => q.TestId == testId)
-            .Include(a => a.Answers)
+            .Include(a => a.Options)
             .ToListAsync();
         
         return questions;

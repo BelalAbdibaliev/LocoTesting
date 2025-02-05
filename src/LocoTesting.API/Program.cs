@@ -1,6 +1,8 @@
+using LocoTesting.API;
 using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Application.Services;
 using LocoTesting.Infrastructure;
+using LocoTesting.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

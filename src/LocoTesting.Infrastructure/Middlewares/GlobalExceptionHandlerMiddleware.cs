@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+
+namespace LocoTesting.Infrastructure.Middlewares;
 
 public class GlobalExceptionHandlerMiddleware
 {
@@ -32,7 +34,7 @@ public class GlobalExceptionHandlerMiddleware
     {
         context.Response.ContentType = "application/json";
 
-       context.Response.StatusCode = ex switch
+        context.Response.StatusCode = ex switch
         {
             ArgumentNullException or ArgumentException => (int)HttpStatusCode.BadRequest,
             KeyNotFoundException or FileNotFoundException => (int)HttpStatusCode.NotFound,

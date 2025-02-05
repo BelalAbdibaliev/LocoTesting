@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LocoTesting.Application.Dtos.Answer;
+namespace LocoTesting.Application.Dtos.Option;
 
-public class CreateAnswerDto
+public class CreateOptionDto
 {
     [Required]
     public int QuestionId { get; set; }

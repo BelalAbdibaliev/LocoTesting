@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using LocoTesting.Application.Dtos.Answer;
+using LocoTesting.Application.Dtos.Option;
 
 namespace LocoTesting.Application.Dtos.Question;
 
@@ -13,5 +13,5 @@ public class CreateQuestionDto
     
     public string Content { get; set; }
     
-    public List<AnswerDto> AnswersDto { get; set; } = new List<AnswerDto>();
+    public List<OptionDto> AnswersDto { get; set; } = new List<OptionDto>();
 }

@@ -6,7 +6,7 @@ public class Question
     public string Text { get; set; }
     public string? Content { get; set; }
     
-    public List<Answer>? Answers { get; set; }
+    public List<Option>? Options { get; set; }
     public int TestId { get; set; }
     public Test? Test { get; set; }
 }

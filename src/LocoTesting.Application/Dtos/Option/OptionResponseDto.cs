@@ -1,6 +1,6 @@
-﻿namespace LocoTesting.Application.Dtos.Answer;
+﻿namespace LocoTesting.Application.Dtos.Option;
 
-public class AnswerResponseDto
+public class OptionResponseDto
 {
     public int Id { get; set; }
     public string Text { get; set; }
