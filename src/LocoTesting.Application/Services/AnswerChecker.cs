@@ -8,10 +8,12 @@ namespace LocoTesting.Application.Services;
 public class AnswerChecker: IAnswerChecker
 {
     private readonly ITestRepository _testRepository;
+    private readonly IOptionRepository _optionRepository;
 
-    public AnswerChecker(ITestRepository testRepository)
+    public AnswerChecker(ITestRepository testRepository, IOptionRepository optionRepository)
     {
         _testRepository = testRepository;
+        _optionRepository = optionRepository;
     }
     
     public async Task<CheckingResultDto> CheckAnswersAsync(CheckAnswerDto checkAnswerDto)
@@ -21,7 +23,7 @@ public class AnswerChecker: IAnswerChecker
 
         foreach (var answer in checkAnswerDto.Answers)
         {
-            var option = await _testRepository.GetCorrectOptionAsync(answer.QuestionId);
+            var option = await _optionRepository.GetCorrectOptionAsync(answer.QuestionId);
             if (option == null)
                 throw new ApplicationException($"Option with id {answer.QuestionId} not found");
 

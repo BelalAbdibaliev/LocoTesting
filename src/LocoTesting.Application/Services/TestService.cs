@@ -10,10 +10,14 @@ namespace LocoTesting.Application.Services;
 public class TestService : ITestService
 {
     private readonly ITestRepository _testRepository;
+    private readonly IQuestionRepository _questionRepository;
+    private readonly IOptionRepository _optionRepository;
 
-    public TestService(ITestRepository testRepository)
+    public TestService(ITestRepository testRepository, IQuestionRepository questionRepository, IOptionRepository optionRepository)
     {
         _testRepository = testRepository;
+        _questionRepository = questionRepository;
+        _optionRepository = optionRepository;
     }
     
     public async Task<List<TestDto>> GetAllTestsAsync()
@@ -35,7 +39,7 @@ public class TestService : ITestService
         if(!await _testRepository.CheckTestExistsAsync(testId))
             throw new KeyNotFoundException("Test does not exist");
         
-        var questions = await _testRepository.GetQuestionsAsync(testId);
+        var questions = await _questionRepository.GetQuestionsAsync(testId);
         
         var questionsDto = questions.Select(a => new QuestionResponseDto
         {
@@ -88,7 +92,7 @@ public class TestService : ITestService
             TestId = dto.TestId,
         };
         
-        var result = await _testRepository.CreateQuestionAsync(question);
+        var result = await _questionRepository.CreateQuestionAsync(question);
         
         return new QuestionResponseDto
         {
@@ -110,10 +114,10 @@ public class TestService : ITestService
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
         
-        if(!await _testRepository.CheckQuestionExistsAsync(dto.QuestionId))
+        if(!await _questionRepository.CheckQuestionExistsAsync(dto.QuestionId))
             throw new KeyNotFoundException("Question does not exist");
         
-        if(dto.IsCorrect && await _testRepository.CheckIsTrueOptionExists(dto.QuestionId))
+        if(dto.IsCorrect && await _optionRepository.CheckIsTrueOptionExists(dto.QuestionId))
             throw new ArgumentException("True answer already exists");
         
         var answer = new Option
@@ -123,7 +127,7 @@ public class TestService : ITestService
             QuestionId = dto.QuestionId,
         };
         
-        var result = await _testRepository.CreateOptionAsync(answer);
+        var result = await _optionRepository.CreateOptionAsync(answer);
         if(result == null)
             throw new NullReferenceException("Bad shit happened");
 
