@@ -22,7 +22,7 @@ public class OptionRepository: IOptionRepository
         return await _dbContext.Options.FirstAsync(a => a.Id == option.Id);
     }
     
-    public async Task<bool> CheckIsTrueOptionExists(int questionId)
+    public async Task<bool> IsTrueOptionExistsAsync(int questionId)
     {
         var answer = _dbContext.Options
             .Where(t => t.QuestionId == questionId)

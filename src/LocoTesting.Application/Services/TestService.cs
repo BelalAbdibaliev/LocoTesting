@@ -13,7 +13,9 @@ public class TestService : ITestService
     private readonly IQuestionRepository _questionRepository;
     private readonly IOptionRepository _optionRepository;
 
-    public TestService(ITestRepository testRepository, IQuestionRepository questionRepository, IOptionRepository optionRepository)
+    public TestService(ITestRepository testRepository,
+        IQuestionRepository questionRepository,
+        IOptionRepository optionRepository)
     {
         _testRepository = testRepository;
         _questionRepository = questionRepository;
@@ -36,7 +38,7 @@ public class TestService : ITestService
 
     public async Task<List<QuestionResponseDto>?> GetAllQuestionsAsync(int testId)
     {
-        if(!await _testRepository.CheckTestExistsAsync(testId))
+        if(!await _testRepository.IsTestExistsAsync(testId))
             throw new KeyNotFoundException("Test does not exist");
         
         var questions = await _questionRepository.GetQuestionsAsync(testId);
@@ -82,7 +84,7 @@ public class TestService : ITestService
     {
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
-        if(!await _testRepository.CheckTestExistsAsync(dto.TestId))
+        if(!await _testRepository.IsTestExistsAsync(dto.TestId))
             throw new KeyNotFoundException("Test does not exist");
         
         var question = new Question
@@ -114,10 +116,10 @@ public class TestService : ITestService
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
         
-        if(!await _questionRepository.CheckQuestionExistsAsync(dto.QuestionId))
+        if(!await _questionRepository.IsQuestionExistsAsync(dto.QuestionId))
             throw new KeyNotFoundException("Question does not exist");
         
-        if(dto.IsCorrect && await _optionRepository.CheckIsTrueOptionExists(dto.QuestionId))
+        if(dto.IsCorrect && await _optionRepository.IsTrueOptionExistsAsync(dto.QuestionId))
             throw new ArgumentException("True answer already exists");
         
         var answer = new Option

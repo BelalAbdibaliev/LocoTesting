@@ -24,7 +24,7 @@ public class QuestionRepository: IQuestionRepository
         return questions;
     }
     
-    public async Task<bool> CheckQuestionExistsAsync(int id)
+    public async Task<bool> IsQuestionExistsAsync(int id)
     {
         return await _dbContext.Questions.AnyAsync(t => t.Id == id);
     }

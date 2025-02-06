@@ -28,7 +28,7 @@ public class TestRepository: ITestRepository
         return test;
     }
 
-    public async Task<bool> CheckTestExistsAsync(int id)
+    public async Task<bool> IsTestExistsAsync(int id)
     {
         return await _dbContext.Tests.AnyAsync(t => t.Id == id);
     }
