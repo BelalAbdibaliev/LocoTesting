@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<ITestService, TestService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAnswerChecker, AnswerChecker>();
 
 var app = builder.Build();
 

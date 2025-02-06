@@ -28,6 +28,13 @@ public class TestRepository: ITestRepository
         return test;
     }
 
+    public async Task<Option> GetCorrectOptionAsync(int questionId)
+    {
+        var correctOption = await _dbContext.Options
+            .FirstOrDefaultAsync(t => t.QuestionId == questionId && t.IsCorrect);
+        return correctOption;
+    }
+
     public async Task<bool> CheckTestExistsAsync(int id)
     {
         return await _dbContext.Tests.AnyAsync(t => t.Id == id);

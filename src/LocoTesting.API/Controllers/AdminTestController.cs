@@ -39,13 +39,13 @@ public class AdminTestController: ControllerBase
         return Ok(createdQuestion);
     }
 
-    [HttpPost("addanswer")]
-    public async Task<ActionResult> AddAnswerAsync([FromBody] CreateOptionDto createOptionDto)
+    [HttpPost("addoption")]
+    public async Task<ActionResult> AddOptionAsync([FromBody] CreateOptionDto createOptionDto)
     {
         if (!ModelState.IsValid)
             return BadRequest();
         
-        var createdAnswer = await _testService.AddAnswerAsync(createOptionDto);
+        var createdAnswer = await _testService.AddOptionAsync(createOptionDto);
         return Ok(createdAnswer);
     }
 }

@@ -5,5 +5,5 @@ namespace LocoTesting.Application.Interfaces.Services;
 
 public interface IAnswerChecker
 {
-    Task<CheckingResultDto> CheckAnswerAsync(CheckAnswerDto checkAnswerDto);
+    Task<CheckingResultDto> CheckAnswersAsync(CheckAnswerDto checkAnswerDto);
 }

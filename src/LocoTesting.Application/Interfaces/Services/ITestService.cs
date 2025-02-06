@@ -10,5 +10,5 @@ public interface ITestService
     Task<List<QuestionResponseDto>?> GetAllQuestionsAsync(int testId);
     Task<TestDto> AddTestAsync(CreateTestDto dto);
     Task<QuestionResponseDto> AddQuestionAsync(CreateQuestionDto dto);
-    Task<OptionDto> AddAnswerAsync(CreateOptionDto dto);
+    Task<OptionResponseDto> AddOptionAsync(CreateOptionDto dto);
 }

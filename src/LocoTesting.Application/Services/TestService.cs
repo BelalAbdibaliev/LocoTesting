@@ -43,7 +43,7 @@ public class TestService : ITestService
             Text = a.Text,
             Content = a.Content,
             TestId = a.TestId,
-            Answers = a.Options.Select(b => new OptionResponseDto()
+            Options = a.Options.Select(b => new OptionResponseDto()
             {
                 Id = b.Id,
                 IsCorrect = b.IsCorrect,
@@ -96,7 +96,7 @@ public class TestService : ITestService
             Text = result.Text,
             Content = result.Content,
             TestId = result.TestId,
-            Answers = result.Options.Select(a => new OptionResponseDto()
+            Options = result.Options.Select(a => new OptionResponseDto()
             {
                 Id = a.Id,
                 Text = a.Text,
@@ -105,7 +105,7 @@ public class TestService : ITestService
         };
     }
 
-    public async Task<OptionDto> AddAnswerAsync(CreateOptionDto dto)
+    public async Task<OptionResponseDto> AddOptionAsync(CreateOptionDto dto)
     {
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
@@ -127,8 +127,9 @@ public class TestService : ITestService
         if(result == null)
             throw new NullReferenceException("Bad shit happened");
 
-        return new OptionDto
+        return new OptionResponseDto
         {
+            Id = result.Id,
             Text = result.Text,
             IsCorrect = result.IsCorrect
         };
