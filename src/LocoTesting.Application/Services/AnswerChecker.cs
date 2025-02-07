@@ -1,6 +1,7 @@
 ﻿using LocoTesting.Application.Dtos.Answer;
 using LocoTesting.Application.Dtos.Option;
 using LocoTesting.Application.Dtos.Test;
+using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Repositories;
 using LocoTesting.Application.Interfaces.Services;
 
@@ -8,13 +9,11 @@ namespace LocoTesting.Application.Services;
 
 public class AnswerChecker: IAnswerChecker
 {
-    private readonly ITestRepository _testRepository;
-    private readonly IOptionRepository _optionRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AnswerChecker(ITestRepository testRepository, IOptionRepository optionRepository)
+    public AnswerChecker(IUnitOfWork unitOfWork)
     {
-        _testRepository = testRepository;
-        _optionRepository = optionRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task<CheckingResultDto> CheckAnswersAsync(CheckAnswerDto checkAnswerDto)
@@ -24,7 +23,7 @@ public class AnswerChecker: IAnswerChecker
 
         foreach (var answer in checkAnswerDto.Answers)
         {
-            var correctAnswer = await _optionRepository.GetCorrectOptionAsync(answer.QuestionId);
+            var correctAnswer = await _unitOfWork.Options.GetCorrectOptionAsync(answer.QuestionId);
             if (correctAnswer == null)
                 throw new ApplicationException($"Option with id {answer.QuestionId} not found");
 

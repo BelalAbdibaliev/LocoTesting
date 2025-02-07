@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Repositories;
 using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Domain.Models;
@@ -76,6 +77,7 @@ public static class DependencyInjection
         services.AddScoped<ITestRepository, TestRepository>();
         services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<IOptionRepository, OptionRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         services.AddScoped<ITokenGenerator, TokenGenerator>();
         services.AddProblemDetails();
