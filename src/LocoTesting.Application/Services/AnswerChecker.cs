@@ -30,7 +30,7 @@ public class AnswerChecker: IAnswerChecker
             if (option.Id == answer.OptionId)
             {
                 totalCorrectAnswers++;
-                checkingResultDto.CorrectAnswers.Add(answer);
+                checkingResultDto.SubmittedCorrectAnswers.Add(answer);
             }
         }
         checkingResultDto.TotalCorrectAnswers = totalCorrectAnswers;

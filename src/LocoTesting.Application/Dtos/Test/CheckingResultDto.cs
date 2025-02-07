@@ -7,6 +7,6 @@ public class CheckingResultDto
 {
     public int TestId { get; set; }
     public int TotalCorrectAnswers { get; set; }
-    public List<AnswerDto> CorrectAnswers { get; set; } = new List<AnswerDto>();
-    public List<CorrectAnswerDto> CorrectOptions { get; set; } = new List<CorrectAnswerDto>();
+    public List<AnswerDto> SubmittedCorrectAnswers { get; set; } = new List<AnswerDto>();
+    public List<CorrectAnswerDto> ExpectedAnswers { get; set; } = new List<CorrectAnswerDto>();
 }
