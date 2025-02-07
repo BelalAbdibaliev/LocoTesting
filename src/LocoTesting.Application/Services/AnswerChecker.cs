@@ -1,4 +1,5 @@
-﻿using LocoTesting.Application.Dtos.Option;
+﻿using LocoTesting.Application.Dtos.Answer;
+using LocoTesting.Application.Dtos.Option;
 using LocoTesting.Application.Dtos.Test;
 using LocoTesting.Application.Interfaces.Repositories;
 using LocoTesting.Application.Interfaces.Services;
@@ -23,11 +24,20 @@ public class AnswerChecker: IAnswerChecker
 
         foreach (var answer in checkAnswerDto.Answers)
         {
-            var option = await _optionRepository.GetCorrectOptionAsync(answer.QuestionId);
-            if (option == null)
+            var correctAnswer = await _optionRepository.GetCorrectOptionAsync(answer.QuestionId);
+            if (correctAnswer == null)
                 throw new ApplicationException($"Option with id {answer.QuestionId} not found");
 
-            if (option.Id == answer.OptionId)
+            CorrectAnswerDto correctAnswerDto = new CorrectAnswerDto
+            {
+                QuestionId = correctAnswer.QuestionId,
+                CorrectAnswerId = correctAnswer.Id,
+                Answer = correctAnswer.Text
+            };
+            
+            checkingResultDto.ExpectedAnswers.Add(correctAnswerDto);
+
+            if (correctAnswer.Id == answer.OptionId)
             {
                 totalCorrectAnswers++;
                 checkingResultDto.SubmittedCorrectAnswers.Add(answer);
