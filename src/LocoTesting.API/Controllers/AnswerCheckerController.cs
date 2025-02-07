@@ -17,7 +17,7 @@ public class AnswerCheckerController: ControllerBase
         _answerChecker = answerChecker;
     }
 
-    [HttpPost]
+    [HttpPost("check")]
     public async Task<IActionResult> CheckAnswersAsync([FromBody] CheckAnswerDto checkAnswerDto)
     {
         var result = await _answerChecker.CheckAnswersAsync(checkAnswerDto);
