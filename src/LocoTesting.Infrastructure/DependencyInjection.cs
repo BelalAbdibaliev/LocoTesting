@@ -23,8 +23,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"),
-                b => b.MigrationsAssembly("LocoTesting.Infrastructure"));
+            options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
         });
         
         services.AddIdentity<AppUser, IdentityRole>(options => 
