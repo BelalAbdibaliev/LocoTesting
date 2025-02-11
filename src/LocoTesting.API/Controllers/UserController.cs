@@ -5,12 +5,12 @@ namespace LocoTesting.API.Controllers;
 
 [ApiController]
 [Route("tests-user")]
-public class UserTestController : ControllerBase
+public class UserController : ControllerBase
 {
-    private readonly ILogger<UserTestController> _logger;
+    private readonly ILogger<UserController> _logger;
     private readonly ITestService _testService;
     
-    public UserTestController(ITestService testService, ILogger<UserTestController> logger)
+    public UserController(ITestService testService, ILogger<UserController> logger)
     {
         _testService = testService;
         _logger = logger;

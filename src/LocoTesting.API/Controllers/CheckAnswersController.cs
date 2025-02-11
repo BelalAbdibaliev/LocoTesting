@@ -6,12 +6,12 @@ namespace LocoTesting.API.Controllers;
 
 [ApiController]
 [Route("answerchecker")]
-public class AnswerCheckerController: ControllerBase
+public class CheckAnswersController: ControllerBase
 {
-    private readonly ILogger<AnswerCheckerController> _logger;
+    private readonly ILogger<CheckAnswersController> _logger;
     private readonly IAnswerChecker _answerChecker;
     
-    public AnswerCheckerController(ILogger<AnswerCheckerController> logger, IAnswerChecker answerChecker)
+    public CheckAnswersController(ILogger<CheckAnswersController> logger, IAnswerChecker answerChecker)
     {
         _logger = logger;
         _answerChecker = answerChecker;

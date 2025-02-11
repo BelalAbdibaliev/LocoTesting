@@ -8,12 +8,12 @@ namespace LocoTesting.API.Controllers;
 
 [ApiController]
 [Route("tests-admin/")]
-public class AdminTestController: ControllerBase
+public class AdminController: ControllerBase
 {
-    private readonly ILogger<AdminTestController> _logger;
+    private readonly ILogger<AdminController> _logger;
     private readonly ITestService _testService;
 
-    public AdminTestController(ILogger<AdminTestController> logger, ITestService testService)
+    public AdminController(ILogger<AdminController> logger, ITestService testService)
     {
         _logger = logger;
         _testService = testService;
