@@ -4,7 +4,7 @@ namespace LocoTesting.Application.Interfaces.Repositories;
 
 public interface IOptionRepository
 {
-    Task<Option> GetCorrectOptionAsync(int questionId);
-    Task<bool> IsTrueOptionExistsAsync(int questionId);
-    Task<Option?> CreateOptionAsync(Option option);
+    Task<AnswerOption> GetCorrectAnswerOptionAsync(int questionId);
+    Task<bool> IsTrueAnswerOptionExistsAsync(int questionId);
+    Task<AnswerOption?> CreateAnswerOptionAsync(AnswerOption answerOption);
 }

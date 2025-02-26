@@ -2,7 +2,7 @@
 
 namespace LocoTesting.Application.Dtos.Option;
 
-public class CreateOptionDto
+public class CreateAnswerOptionDto
 {
     [Required]
     public int QuestionId { get; set; }

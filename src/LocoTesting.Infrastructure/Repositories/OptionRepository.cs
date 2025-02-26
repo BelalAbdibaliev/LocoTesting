@@ -14,25 +14,25 @@ public class OptionRepository: IOptionRepository
         _dbContext = dbContext;
     }
     
-    public async Task<Option?> CreateOptionAsync(Option option)
+    public async Task<AnswerOption?> CreateAnswerOptionAsync(AnswerOption answerOption)
     {
-        await _dbContext.Options.AddAsync(option);
+        await _dbContext.AnswerOptions.AddAsync(answerOption);
         await _dbContext.SaveChangesAsync();
         
-        return await _dbContext.Options.FirstAsync(a => a.Id == option.Id);
+        return await _dbContext.AnswerOptions.FirstAsync(a => a.Id == answerOption.Id);
     }
     
-    public async Task<bool> IsTrueOptionExistsAsync(int questionId)
+    public async Task<bool> IsTrueAnswerOptionExistsAsync(int questionId)
     {
-        var answer = _dbContext.Options
+        var answer = _dbContext.AnswerOptions
             .Where(t => t.QuestionId == questionId)
             .AsQueryable();
         return await answer.Where(t => t.IsCorrect == true).AnyAsync();
     }
     
-    public async Task<Option> GetCorrectOptionAsync(int questionId)
+    public async Task<AnswerOption> GetCorrectAnswerOptionAsync(int questionId)
     {
-        var correctOption = await _dbContext.Options
+        var correctOption = await _dbContext.AnswerOptions
             .FirstOrDefaultAsync(t => t.QuestionId == questionId && t.IsCorrect);
         return correctOption;
     }

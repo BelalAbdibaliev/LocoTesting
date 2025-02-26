@@ -40,12 +40,12 @@ public class AdminController: ControllerBase
     }
 
     [HttpPost("addoption")]
-    public async Task<ActionResult> AddOptionAsync([FromBody] CreateOptionDto createOptionDto)
+    public async Task<ActionResult> AddOptionAsync([FromBody] CreateAnswerOptionDto createAnswerOptionDto)
     {
         if (!ModelState.IsValid)
             return BadRequest();
         
-        var createdAnswer = await _testService.AddOptionAsync(createOptionDto);
+        var createdAnswer = await _testService.AddOptionAsync(createAnswerOptionDto);
         return Ok(createdAnswer);
     }
 }

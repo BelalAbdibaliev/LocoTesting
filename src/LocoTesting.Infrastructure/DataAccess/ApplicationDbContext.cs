@@ -12,7 +12,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.Entity<Question>()
-                        .HasMany(q => q.Options)
+                        .HasMany(q => q.AnswerOptions)
                         .WithOne(a => a.Question)
                         .HasForeignKey(a => a.QuestionId)
                         .OnDelete(DeleteBehavior.Cascade);
@@ -26,6 +26,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     
     public DbSet<AppUser> Users { get; set; }
     public DbSet<Test> Tests { get; set; }
-    public DbSet<Option> Options { get; set; }
+    public DbSet<AnswerOption> AnswerOptions { get; set; }
     public DbSet<Question> Questions { get; set; }
 }

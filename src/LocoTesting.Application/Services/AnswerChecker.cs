@@ -23,9 +23,9 @@ public class AnswerChecker: IAnswerChecker
 
         foreach (var answer in checkAnswerDto.Answers)
         {
-            var correctAnswer = await _unitOfWork.Options.GetCorrectOptionAsync(answer.QuestionId);
+            var correctAnswer = await _unitOfWork.Options.GetCorrectAnswerOptionAsync(answer.QuestionId);
             if (correctAnswer == null)
-                throw new ApplicationException($"Option with id {answer.QuestionId} not found");
+                throw new ApplicationException($"AnswerOption with id {answer.QuestionId} not found");
 
             CorrectAnswerDto correctAnswerDto = new CorrectAnswerDto
             {

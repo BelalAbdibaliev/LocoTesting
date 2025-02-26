@@ -44,7 +44,7 @@ public class TestService : ITestService
             Text = a.Text,
             Content = a.Content,
             TestId = a.TestId,
-            Options = a.Options.Select(b => new OptionResponseDto()
+            AnswerOptions = a.AnswerOptions.Select(b => new AnswerOptionResponseDto()
             {
                 Id = b.Id,
                 IsCorrect = b.IsCorrect,
@@ -97,7 +97,7 @@ public class TestService : ITestService
             Text = result.Text,
             Content = result.Content,
             TestId = result.TestId,
-            Options = result.Options.Select(a => new OptionResponseDto()
+            AnswerOptions = result.AnswerOptions.Select(a => new AnswerOptionResponseDto()
             {
                 Id = a.Id,
                 Text = a.Text,
@@ -106,7 +106,7 @@ public class TestService : ITestService
         };
     }
 
-    public async Task<OptionResponseDto> AddOptionAsync(CreateOptionDto dto)
+    public async Task<AnswerOptionResponseDto> AddOptionAsync(CreateAnswerOptionDto dto)
     {
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
@@ -114,21 +114,21 @@ public class TestService : ITestService
         if(!await _unitOfWork.Questions.IsQuestionExistsAsync(dto.QuestionId))
             throw new KeyNotFoundException("Question does not exist");
         
-        if(dto.IsCorrect && await _unitOfWork.Options.IsTrueOptionExistsAsync(dto.QuestionId))
+        if(dto.IsCorrect && await _unitOfWork.Options.IsTrueAnswerOptionExistsAsync(dto.QuestionId))
             throw new ArgumentException("True answer already exists");
         
-        var answer = new Option
+        var answer = new AnswerOption
         {
             Text = dto.Text,
             IsCorrect = dto.IsCorrect,
             QuestionId = dto.QuestionId,
         };
         
-        var result = await _unitOfWork.Options.CreateOptionAsync(answer);
+        var result = await _unitOfWork.Options.CreateAnswerOptionAsync(answer);
         if(result == null)
             throw new NullReferenceException("Bad shit happened");
 
-        return new OptionResponseDto
+        return new AnswerOptionResponseDto
         {
             Id = result.Id,
             Text = result.Text,

@@ -18,7 +18,7 @@ public class QuestionRepository: IQuestionRepository
     {
         var questions = await _dbContext.Questions
             .Where(q => q.TestId == testId)
-            .Include(a => a.Options)
+            .Include(a => a.AnswerOptions)
             .ToListAsync();
         
         return questions;
@@ -35,7 +35,7 @@ public class QuestionRepository: IQuestionRepository
         await _dbContext.SaveChangesAsync();
         
         return await _dbContext.Questions
-            .Include(q => q.Options)
+            .Include(q => q.AnswerOptions)
             .FirstAsync(q => q.Id == question.Id);
     }
 }

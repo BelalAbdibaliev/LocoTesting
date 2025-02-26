@@ -7,7 +7,7 @@ public class QuestionResponseDto
     public int Id { get; set; }
     public string Text { get; set; }
     public string Content { get; set; }
-    public List<OptionResponseDto> Options { get; set; } = new List<OptionResponseDto>();
+    public List<AnswerOptionResponseDto> AnswerOptions { get; set; } = new List<AnswerOptionResponseDto>();
     
     public int TestId { get; set; }
 }
