@@ -1,4 +1,5 @@
 ﻿using LocoTesting.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocoTesting.API.Controllers;
@@ -23,6 +24,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet("getallquestions")]
+    [Authorize]
     public async Task<ActionResult> GetAllQuestionsAsync([FromQuery] int testId)
     {
         var questions = await _testService.GetAllQuestionsAsync(testId);

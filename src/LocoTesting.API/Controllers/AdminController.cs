@@ -2,6 +2,7 @@
 using LocoTesting.Application.Dtos.Question;
 using LocoTesting.Application.Dtos.Test;
 using LocoTesting.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocoTesting.API.Controllers;
@@ -20,6 +21,7 @@ public class AdminController: ControllerBase
     }
 
     [HttpPost("create")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddAsync([FromBody] CreateTestDto createTestDto)
     {
         if (!ModelState.IsValid)
@@ -30,6 +32,7 @@ public class AdminController: ControllerBase
     }
 
     [HttpPost("addquestion")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddQuestionAsync([FromBody] CreateQuestionDto createQuestionDto)
     {
         if (!ModelState.IsValid)
@@ -40,6 +43,7 @@ public class AdminController: ControllerBase
     }
 
     [HttpPost("addoption")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddOptionAsync([FromBody] CreateAnswerOptionDto createAnswerOptionDto)
     {
         if (!ModelState.IsValid)
