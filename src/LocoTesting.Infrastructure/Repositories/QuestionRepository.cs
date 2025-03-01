@@ -1,5 +1,5 @@
 ﻿using LocoTesting.Application.Interfaces.Repositories;
-using LocoTesting.Domain.Models;
+using LocoTesting.Domain.Entities;
 using LocoTesting.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 

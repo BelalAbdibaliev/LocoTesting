@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace LocoTesting.Domain.Models;
+namespace LocoTesting.Domain.Entities;
 
 public class AppUser : IdentityUser
 {

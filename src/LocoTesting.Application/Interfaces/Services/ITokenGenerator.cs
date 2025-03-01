@@ -1,4 +1,4 @@
-﻿using LocoTesting.Domain.Models;
+﻿using LocoTesting.Domain.Entities;
 
 namespace LocoTesting.Application.Interfaces.Services;
 

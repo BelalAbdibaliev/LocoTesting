@@ -22,7 +22,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.AnswerOption", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.AnswerOption", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.ToTable("AnswerOptions");
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.AppUser", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -114,7 +114,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.Question", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -139,7 +139,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.Test", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.Test", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +160,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.ToTable("Tests");
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.UserProfile", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.UserProfile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -324,9 +324,9 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.AnswerOption", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.AnswerOption", b =>
                 {
-                    b.HasOne("LocoTesting.Domain.Models.Question", "Question")
+                    b.HasOne("LocoTesting.Domain.Entities.Question", "Question")
                         .WithMany("AnswerOptions")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -335,9 +335,9 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.Question", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.Question", b =>
                 {
-                    b.HasOne("LocoTesting.Domain.Models.Test", "Test")
+                    b.HasOne("LocoTesting.Domain.Entities.Test", "Test")
                         .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -346,11 +346,11 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.UserProfile", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.UserProfile", b =>
                 {
-                    b.HasOne("LocoTesting.Domain.Models.AppUser", "AppUser")
+                    b.HasOne("LocoTesting.Domain.Entities.AppUser", "AppUser")
                         .WithOne("UserProfile")
-                        .HasForeignKey("LocoTesting.Domain.Models.UserProfile", "AppUserId")
+                        .HasForeignKey("LocoTesting.Domain.Entities.UserProfile", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -368,7 +368,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LocoTesting.Domain.Models.AppUser", null)
+                    b.HasOne("LocoTesting.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -377,7 +377,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LocoTesting.Domain.Models.AppUser", null)
+                    b.HasOne("LocoTesting.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -392,7 +392,7 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LocoTesting.Domain.Models.AppUser", null)
+                    b.HasOne("LocoTesting.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,25 +401,25 @@ namespace LocoTesting.Infrastructure.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LocoTesting.Domain.Models.AppUser", null)
+                    b.HasOne("LocoTesting.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.AppUser", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.AppUser", b =>
                 {
                     b.Navigation("UserProfile")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.Question", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.Question", b =>
                 {
                     b.Navigation("AnswerOptions");
                 });
 
-            modelBuilder.Entity("LocoTesting.Domain.Models.Test", b =>
+            modelBuilder.Entity("LocoTesting.Domain.Entities.Test", b =>
                 {
                     b.Navigation("Questions");
                 });

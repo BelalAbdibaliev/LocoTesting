@@ -2,7 +2,7 @@
 using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Repositories;
 using LocoTesting.Application.Interfaces.Services;
-using LocoTesting.Domain.Models;
+using LocoTesting.Domain.Entities;
 using LocoTesting.Infrastructure.DataAccess;
 using LocoTesting.Infrastructure.Repositories;
 using LocoTesting.Infrastructure.Services;

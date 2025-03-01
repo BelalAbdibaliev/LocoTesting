@@ -4,7 +4,7 @@ using LocoTesting.Application.Dtos.Test;
 using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Repositories;
 using LocoTesting.Application.Interfaces.Services;
-using LocoTesting.Domain.Models;
+using LocoTesting.Domain.Entities;
 
 namespace LocoTesting.Application.Services;
 

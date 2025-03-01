@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using LocoTesting.Application.Interfaces.Services;
-using LocoTesting.Domain.Models;
+using LocoTesting.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

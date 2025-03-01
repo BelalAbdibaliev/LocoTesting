@@ -2,7 +2,7 @@
 using LocoTesting.Application.Dtos.Auth;
 using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Services;
-using LocoTesting.Domain.Models;
+using LocoTesting.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

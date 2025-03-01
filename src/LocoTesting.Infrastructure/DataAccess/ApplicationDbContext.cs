@@ -1,4 +1,4 @@
-﻿using LocoTesting.Domain.Models;
+﻿using LocoTesting.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

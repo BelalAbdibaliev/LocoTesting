@@ -1,4 +1,4 @@
-﻿namespace LocoTesting.Domain.Models;
+﻿namespace LocoTesting.Domain.Entities;
 
 public class Test
 {
