@@ -18,6 +18,9 @@ public class AuthController: ControllerBase
     [HttpPost("google-auth")]
     public async Task<IActionResult> GoogleAuth([FromBody] GoogleAuthDto googleAuthDto)
     {
+        if(!ModelState.IsValid)
+            return BadRequest();
+        
         return Ok(await _authService.GoogleAuth(googleAuthDto));
     }
 }
