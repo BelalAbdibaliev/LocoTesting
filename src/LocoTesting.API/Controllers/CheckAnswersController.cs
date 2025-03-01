@@ -21,6 +21,9 @@ public class CheckAnswersController: ControllerBase
     [HttpPost("check")]
     public async Task<IActionResult> CheckAnswersAsync([FromBody] CheckAnswerDto checkAnswerDto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest();
+        
         var result = await _answerChecker.CheckAnswersAsync(checkAnswerDto);
         
         return Ok(result);

@@ -8,6 +8,7 @@ public class CreateAnswerOptionDto
     public int QuestionId { get; set; }
     
     [Required]
+    [MaxLength(50)]
     public string Text { get; set; }
     [Required]
     public bool IsCorrect { get; set; }

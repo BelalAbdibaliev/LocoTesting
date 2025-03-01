@@ -9,6 +9,7 @@ public class CreateQuestionDto
     public int TestId { get; set; }
     
     [Required]
+    [MaxLength(500)]
     public string Question { get; set; }
     
     public string Content { get; set; }
