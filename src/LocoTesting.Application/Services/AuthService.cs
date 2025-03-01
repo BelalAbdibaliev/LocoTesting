@@ -1,5 +1,6 @@
 ﻿using Google.Apis.Auth;
 using LocoTesting.Application.Dtos.Auth;
+using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Services;
 using LocoTesting.Domain.Models;
 using Microsoft.AspNetCore.Identity;
@@ -30,19 +31,7 @@ public class AuthService : IAuthService
         var user = await _userManager.FindByEmailAsync(payload.Email);
         if (user == null)
         {
-            user = new AppUser
-            {
-                UserName = googleAuthDto.UniqueUserName,
-                Email = payload.Email,
-            };
-            
-            var creationResult = await _userManager.CreateAsync(user);
-            if(!creationResult.Succeeded)
-                throw new DbUpdateException("Registration failed");
-            
-            var rolesResult = await _userManager.AddToRoleAsync(user, "User");
-            if(!rolesResult.Succeeded)
-                throw new DbUpdateException("Failed to assign role to user");
+            user = await CreateUserAsync(googleAuthDto);
         }
         
         var roles = await _userManager.GetRolesAsync(user);
@@ -54,5 +43,32 @@ public class AuthService : IAuthService
             Email = user.Email,
             Token = _tokenGenerator.GenerateToken(user, roles)
         };
+    }
+
+    public async Task<AppUser> CreateUserAsync(GoogleAuthDto googleAuthDto)
+    {
+        if(googleAuthDto is null)
+            throw new ArgumentNullException("User cannot be null");
+        
+        var payload = await GoogleJsonWebSignature.ValidateAsync(googleAuthDto.GoogleToken);
+        var user = new AppUser
+        {
+            UserName = googleAuthDto.UniqueUserName,
+            Email = payload.Email,
+            UserProfile = new UserProfile
+            {
+                FirstName = googleAuthDto.FirstName,
+                LastName = googleAuthDto.LastName,
+            }
+        };
+            
+        var creationResult = await _userManager.CreateAsync(user);
+        if(!creationResult.Succeeded)
+            throw new DbUpdateException("Registration failed");
+            
+        var rolesResult = await _userManager.AddToRoleAsync(user, "User");
+        if(!rolesResult.Succeeded)
+            throw new DbUpdateException("Failed to assign role to user");
+        return user;
     }
 }
