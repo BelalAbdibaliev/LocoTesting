@@ -4,6 +4,6 @@ namespace LocoTesting.Domain.Models;
 
 public class AppUser : IdentityUser
 {
-    public string FirstName { get; set; } = "Unknown";
-    public string LastName { get; set; } = "Unknown";
+    public int UserProfileId { get; set; }
+    public UserProfile UserProfile { get; set; }
 }
