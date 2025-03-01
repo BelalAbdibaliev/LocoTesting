@@ -14,16 +14,19 @@ public class AuthService : IAuthService
     private readonly UserManager<AppUser> _userManager;
     private readonly ITokenGenerator _tokenGenerator;
     private readonly ILogger<AuthService> _logger;
+    private readonly IUnitOfWork _unitOfWork;
 
     public AuthService(UserManager<AppUser> userManager, 
         ITokenGenerator tokenGenerator,
-        ILogger<AuthService> logger)
+        ILogger<AuthService> logger,
+        IUnitOfWork unitOfWork)
     {
         _userManager = userManager;
         _tokenGenerator = tokenGenerator;
         _logger = logger;
+        _unitOfWork = unitOfWork;
     }
-
+    
     public async Task<GoogleAuthResponseDto> GoogleAuth(GoogleAuthDto googleAuthDto)
     {
         var payload = await GoogleJsonWebSignature.ValidateAsync(googleAuthDto.GoogleToken);
@@ -34,12 +37,16 @@ public class AuthService : IAuthService
             user = await CreateUserAsync(googleAuthDto);
         }
         
+        var userProfile = await _unitOfWork.Users.GetUserProfileAsync(user.Id);
+        
         var roles = await _userManager.GetRolesAsync(user);
         _logger.LogInformation($"Successfully logged in {user.UserName}");
         return new GoogleAuthResponseDto
         {
             Id = user.Id,
             UserName = user.UserName,
+            FirstName = userProfile.FirstName,
+            LastName = userProfile.LastName,
             Email = user.Email,
             Token = _tokenGenerator.GenerateToken(user, roles)
         };
