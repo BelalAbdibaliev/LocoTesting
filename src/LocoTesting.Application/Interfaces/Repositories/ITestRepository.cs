@@ -8,4 +8,5 @@ public interface ITestRepository
     Task<Test?> GetTestByIdAsync(int id);
     Task<bool> IsTestExistsAsync(int id);
     Task<Test?> CreateTestAsync(Test test);
+    Task RemoveTestAsync(int id);
 }

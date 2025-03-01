@@ -135,4 +135,10 @@ public class TestService : ITestService
             IsCorrect = result.IsCorrect
         };
     }
+
+    public async Task DeleteTestAsync(int testId)
+    {
+        await _unitOfWork.Tests.RemoveTestAsync(testId);
+        await _unitOfWork.SaveChangesAsync();
+    }
 }

@@ -40,4 +40,10 @@ public class TestRepository: ITestRepository
 
         return await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == test.Id);
     }
+
+    public async Task RemoveTestAsync(int id)
+    {
+        var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == id);
+        _dbContext.Tests.Remove(test);
+    }
 }

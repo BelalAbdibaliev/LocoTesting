@@ -9,7 +9,7 @@ namespace LocoTesting.API.Controllers;
 
 [ApiController]
 [Route("tests-admin/")]
-public class AdminController: ControllerBase
+public class AdminController : ControllerBase
 {
     private readonly ILogger<AdminController> _logger;
     private readonly ITestService _testService;
@@ -26,7 +26,7 @@ public class AdminController: ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        
+
         var createdTest = await _testService.AddTestAsync(createTestDto);
         return Ok(createdTest);
     }
@@ -37,7 +37,7 @@ public class AdminController: ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        
+
         var createdQuestion = await _testService.AddQuestionAsync(createQuestionDto);
         return Ok(createdQuestion);
     }
@@ -48,8 +48,17 @@ public class AdminController: ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        
+
         var createdAnswer = await _testService.AddOptionAsync(createAnswerOptionDto);
         return Ok(createdAnswer);
     }
+
+    [HttpPost("delete")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteTestAsync(int id)
+    {
+        await _testService.DeleteTestAsync(id);
+        return Ok();
+    }
+
 }
