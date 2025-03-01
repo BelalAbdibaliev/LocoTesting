@@ -34,8 +34,6 @@ public class AuthService : IAuthService
             {
                 UserName = googleAuthDto.UniqueUserName,
                 Email = payload.Email,
-                FirstName = googleAuthDto.FirstName,
-                LastName = googleAuthDto.LastName,
             };
             
             var creationResult = await _userManager.CreateAsync(user);
@@ -53,8 +51,6 @@ public class AuthService : IAuthService
         {
             Id = user.Id,
             UserName = user.UserName,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
             Email = user.Email,
             Token = _tokenGenerator.GenerateToken(user, roles)
         };
