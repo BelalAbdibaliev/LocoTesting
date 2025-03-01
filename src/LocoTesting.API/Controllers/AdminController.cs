@@ -61,4 +61,15 @@ public class AdminController : ControllerBase
         return Ok();
     }
 
+    [HttpPost("update-test")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateTestAsync([FromBody] UpdateTestDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+        
+        await _testService.UpdateTestAsync(dto);
+        
+        return Ok();
+    }
 }

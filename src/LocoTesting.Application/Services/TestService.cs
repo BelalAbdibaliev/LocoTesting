@@ -141,4 +141,10 @@ public class TestService : ITestService
         await _unitOfWork.Tests.RemoveTestAsync(testId);
         await _unitOfWork.SaveChangesAsync();
     }
+
+    public async Task UpdateTestAsync(UpdateTestDto dto)
+    {
+        await _unitOfWork.Tests.UpdateTestAsync(dto);
+        await _unitOfWork.SaveChangesAsync();
+    }
 }

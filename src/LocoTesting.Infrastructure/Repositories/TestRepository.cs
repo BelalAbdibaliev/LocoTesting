@@ -1,4 +1,5 @@
-﻿using LocoTesting.Application.Interfaces.Repositories;
+﻿using LocoTesting.Application.Dtos.Test;
+using LocoTesting.Application.Interfaces.Repositories;
 using LocoTesting.Domain.Entities;
 using LocoTesting.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -45,5 +46,25 @@ public class TestRepository: ITestRepository
     {
         var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == id);
         _dbContext.Tests.Remove(test);
+    }
+
+    public async Task UpdateTestAsync(UpdateTestDto newValues)
+    {
+        var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == newValues.Id);
+
+        var entry = _dbContext.Entry(test);
+        foreach (var property in typeof(UpdateTestDto).GetProperties())
+        {
+            var newValue = property.GetValue(newValues);
+            if (newValue != null)
+            {
+                if (property.Name == nameof(UpdateTestDto.Id))
+                    continue;
+                
+                var entityProperty = entry.Property(property.Name);
+                entityProperty.CurrentValue = newValue;
+                entityProperty.IsModified = true;
+            }
+        }
     }
 }

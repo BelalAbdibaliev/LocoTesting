@@ -12,4 +12,5 @@ public interface ITestService
     Task<QuestionResponseDto> AddQuestionAsync(CreateQuestionDto dto);
     Task<AnswerOptionResponseDto> AddOptionAsync(CreateAnswerOptionDto dto);
     Task DeleteTestAsync(int testId);
+    Task UpdateTestAsync(UpdateTestDto dto);
 }
