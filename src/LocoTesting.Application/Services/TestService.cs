@@ -126,7 +126,7 @@ public class TestService : ITestService
         
         var result = await _unitOfWork.Options.CreateAnswerOptionAsync(answer);
         if(result == null)
-            throw new NullReferenceException("Bad shit happened");
+            throw new NullReferenceException("Bad thing happened");
 
         return new AnswerOptionResponseDto
         {
