@@ -11,13 +11,19 @@ public class UnitOfWork: IUnitOfWork
     public ITestRepository Tests { get; }
     public IOptionRepository Options { get; }
     public IQuestionRepository Questions { get; }
+    public IUserRepository Users { get; }
 
-    public UnitOfWork(ApplicationDbContext context, ITestRepository tests, IOptionRepository options, IQuestionRepository questions)
+    public UnitOfWork(ApplicationDbContext context, 
+        ITestRepository tests, 
+        IOptionRepository options, 
+        IQuestionRepository questions,
+        IUserRepository users)
     {
         _context = context;
         Tests = tests;
         Options = options;
         Questions = questions;
+        Users = users;
     }
     
     public async Task<int> SaveChangesAsync()

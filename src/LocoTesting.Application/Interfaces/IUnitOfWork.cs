@@ -7,6 +7,7 @@ public interface IUnitOfWork
     ITestRepository Tests { get; }
     IOptionRepository Options { get; }
     IQuestionRepository Questions { get; }
+    IUserRepository Users { get; }
     
     Task<int> SaveChangesAsync();
 }
