@@ -19,7 +19,7 @@ public class TestService : ITestService
     
     public async Task<List<TestDto>> GetAllTestsAsync()
     {
-        var tests = await _unitOfWork.Tests.GetAllTestsAsync();
+        var tests = await _unitOfWork.Tests.GetAllAsync();
 
         var testDtos = tests.Select(test => new TestDto
         {
@@ -33,10 +33,10 @@ public class TestService : ITestService
 
     public async Task<List<QuestionResponseDto>?> GetAllQuestionsAsync(int testId)
     {
-        if(!await _unitOfWork.Tests.IsTestExistsAsync(testId))
+        if(!await _unitOfWork.Tests.IsExistsAsync(testId))
             throw new KeyNotFoundException("Test does not exist");
         
-        var questions = await _unitOfWork.Questions.GetQuestionsAsync(testId);
+        var questions = await _unitOfWork.Questions.GetByTestIdAsync(testId);
         
         var questionsDto = questions.Select(a => new QuestionResponseDto
         {
@@ -66,7 +66,7 @@ public class TestService : ITestService
             Description = dto.Description,
         };
         
-        var result = await _unitOfWork.Tests.CreateTestAsync(test);
+        var result = await _unitOfWork.Tests.CreateAsync(test);
         return new TestDto
         {
             Id = result.Id,
@@ -79,7 +79,7 @@ public class TestService : ITestService
     {
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
-        if(!await _unitOfWork.Tests.IsTestExistsAsync(dto.TestId))
+        if(!await _unitOfWork.Tests.IsExistsAsync(dto.TestId))
             throw new KeyNotFoundException("Test does not exist");
         
         var question = new Question
@@ -89,7 +89,7 @@ public class TestService : ITestService
             TestId = dto.TestId,
         };
         
-        var result = await _unitOfWork.Questions.CreateQuestionAsync(question);
+        var result = await _unitOfWork.Questions.CreateAsync(question);
         
         return new QuestionResponseDto
         {
@@ -111,7 +111,7 @@ public class TestService : ITestService
         if(dto == null)
             throw new ArgumentNullException("DTO cannot be null");
         
-        if(!await _unitOfWork.Questions.IsQuestionExistsAsync(dto.QuestionId))
+        if(!await _unitOfWork.Questions.IsExistsAsync(dto.QuestionId))
             throw new KeyNotFoundException("Question does not exist");
         
         if(dto.IsCorrect && await _unitOfWork.Options.IsTrueAnswerOptionExistsAsync(dto.QuestionId))
@@ -124,7 +124,7 @@ public class TestService : ITestService
             QuestionId = dto.QuestionId,
         };
         
-        var result = await _unitOfWork.Options.CreateAnswerOptionAsync(answer);
+        var result = await _unitOfWork.Options.CreateAsync(answer);
         if(result == null)
             throw new NullReferenceException("Bad thing happened");
 
@@ -138,7 +138,7 @@ public class TestService : ITestService
 
     public async Task DeleteTestAsync(int testId)
     {
-        await _unitOfWork.Tests.RemoveTestAsync(testId);
+        await _unitOfWork.Tests.RemoveAsync(testId);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -167,7 +167,7 @@ public class TestService : ITestService
             }
         }
 
-        await _unitOfWork.Tests.UpdateTestAsync(test);
+        await _unitOfWork.Tests.UpdateAsync(test);
         await _unitOfWork.SaveChangesAsync();
     }
 }

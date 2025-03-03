@@ -14,7 +14,7 @@ public class OptionRepository: IOptionRepository
         _dbContext = dbContext;
     }
     
-    public async Task<AnswerOption?> CreateAnswerOptionAsync(AnswerOption answerOption)
+    public async Task<AnswerOption?> CreateAsync(AnswerOption answerOption)
     {
         await _dbContext.AnswerOptions.AddAsync(answerOption);
         await _dbContext.SaveChangesAsync();

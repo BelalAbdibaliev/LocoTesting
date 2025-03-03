@@ -15,7 +15,7 @@ public class TestRepository: ITestRepository
         _dbContext = dbContext;
     }
     
-    public async Task<List<Test>?> GetAllTestsAsync()
+    public async Task<List<Test>?> GetAllAsync()
     {
         var tests = await _dbContext.Tests.ToListAsync();
         
@@ -29,12 +29,12 @@ public class TestRepository: ITestRepository
         return test;
     }
 
-    public async Task<bool> IsTestExistsAsync(int id)
+    public async Task<bool> IsExistsAsync(int id)
     {
         return await _dbContext.Tests.AnyAsync(t => t.Id == id);
     }
 
-    public async Task<Test?> CreateTestAsync(Test test)
+    public async Task<Test?> CreateAsync(Test test)
     {
         await _dbContext.Tests.AddAsync(test);
         await _dbContext.SaveChangesAsync();
@@ -42,13 +42,13 @@ public class TestRepository: ITestRepository
         return await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == test.Id);
     }
 
-    public async Task RemoveTestAsync(int id)
+    public async Task RemoveAsync(int id)
     {
         var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == id);
         _dbContext.Tests.Remove(test);
     }
 
-    public async Task UpdateTestAsync(Test test)
+    public async Task UpdateAsync(Test test)
     {
         _dbContext.Tests.Update(test);
     }
