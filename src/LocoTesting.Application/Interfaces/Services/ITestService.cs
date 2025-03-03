@@ -13,4 +13,7 @@ public interface ITestService
     Task<AnswerOptionResponseDto> AddOptionAsync(CreateAnswerOptionDto dto);
     Task DeleteTestAsync(int testId);
     Task UpdateTestAsync(UpdateTestDto dto);
+    Task UpdateEntityAsync<T, TDto>(TDto dto)
+        where T : class
+        where TDto : class;
 }

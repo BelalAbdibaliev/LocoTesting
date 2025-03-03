@@ -170,4 +170,40 @@ public class TestService : ITestService
         await _unitOfWork.Tests.UpdateAsync(test);
         await _unitOfWork.SaveChangesAsync();
     }
+
+    public async Task UpdateEntityAsync<T, TDto>(TDto dto) 
+        where T : class
+        where TDto : class
+    {
+        var idProperty = typeof(TDto).GetProperty("Id");
+        if (idProperty == null)
+            throw new Exception("DTO должен содержать свойство Id");
+
+        var idValue = idProperty.GetValue(dto);
+        if (idValue == null)
+            throw new Exception("Id не может быть null");
+
+        var entity = await _unitOfWork.GetRepository<T>().GetByIdAsync((int)idValue);
+        if (entity == null)
+            throw new Exception($"{typeof(T).Name} с таким Id не найден");
+
+        foreach (var dtoProperty in typeof(TDto).GetProperties())
+        {
+            if (dtoProperty.Name == "Id") 
+                continue;
+
+            var newValue = dtoProperty.GetValue(dto);
+            if (newValue == null) 
+                continue;
+
+            var entityProperty = typeof(T).GetProperty(dtoProperty.Name);
+            if (entityProperty != null && entityProperty.CanWrite)
+            {
+                entityProperty.SetValue(entity, newValue);
+            }
+        }
+
+        await _unitOfWork.GetRepository<T>().UpdateAsync(entity);
+        await _unitOfWork.SaveChangesAsync();
+    }
 }
