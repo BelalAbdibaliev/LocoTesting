@@ -8,6 +8,7 @@ public interface IUnitOfWork
     IOptionRepository Options { get; }
     IQuestionRepository Questions { get; }
     IUserRepository Users { get; }
+    IGenericRepository<T> GetRepository<T>() where T : class;
     
     Task<int> SaveChangesAsync();
 }
