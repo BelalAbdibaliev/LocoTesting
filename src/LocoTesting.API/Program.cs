@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerWithAuth();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddCors(options =>
 {
