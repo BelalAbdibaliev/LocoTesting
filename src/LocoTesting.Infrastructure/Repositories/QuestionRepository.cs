@@ -38,4 +38,9 @@ public class QuestionRepository: IQuestionRepository
             .Include(q => q.AnswerOptions)
             .FirstAsync(q => q.Id == question.Id);
     }
+
+    public async Task UpdateAsync(Question question)
+    {
+        _dbContext.Questions.Update(question);
+    }
 }
