@@ -1,4 +1,6 @@
-﻿using LocoTesting.Application.Interfaces.Services;
+﻿using LocoTesting.Application.Dtos.Test;
+using LocoTesting.Application.Interfaces.Services;
+using LocoTesting.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,14 +22,14 @@ public class UserController : ControllerBase
     [HttpGet("getall")]
     public async Task<ActionResult> GetAllAsync()
     {
-        return Ok(await _testService.GetAllTestsAsync());
+        return Ok(await _testService.GetAllAsync<Test>());
     }
     
     [HttpGet("getallquestions")]
     [Authorize]
     public async Task<ActionResult> GetAllQuestionsAsync([FromQuery] int testId)
     {
-        var questions = await _testService.GetAllQuestionsAsync(testId);
+        var questions = await _testService.GetAllAsync<Question>();
         return Ok(questions);
     }
 }

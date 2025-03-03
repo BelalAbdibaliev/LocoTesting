@@ -2,6 +2,7 @@
 using LocoTesting.Application.Dtos.Question;
 using LocoTesting.Application.Dtos.Test;
 using LocoTesting.Application.Interfaces.Services;
+using LocoTesting.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +28,8 @@ public class AdminController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest();
 
-        var createdTest = await _testService.AddTestAsync(createTestDto);
-        return Ok(createdTest);
+        await _testService.CreateAsync<Test, CreateTestDto>(createTestDto);
+        return Ok();
     }
 
     [HttpPost("addquestion")]
@@ -38,8 +39,8 @@ public class AdminController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest();
 
-        var createdQuestion = await _testService.AddQuestionAsync(createQuestionDto);
-        return Ok(createdQuestion);
+        await _testService.CreateAsync<Question, CreateQuestionDto>(createQuestionDto);
+        return Ok();
     }
 
     [HttpPost("addoption")]
@@ -49,15 +50,15 @@ public class AdminController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest();
 
-        var createdAnswer = await _testService.AddOptionAsync(createAnswerOptionDto);
-        return Ok(createdAnswer);
+        await _testService.CreateAsync<AnswerOption, CreateAnswerOptionDto>(createAnswerOptionDto);
+        return Ok();
     }
 
-    [HttpPost("delete")]
+    [HttpDelete("delete")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteTestAsync(int id)
     {
-        await _testService.DeleteTestAsync(id);
+        await _testService.DeleteAsync<Test>(id);
         return Ok();
     }
 
