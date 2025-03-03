@@ -50,7 +50,7 @@ public class AdminController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest();
 
-        await _testService.CreateAsync<AnswerOption, CreateAnswerOptionDto>(createAnswerOptionDto);
+        await _testService.CreateAnswerOptionAsync(createAnswerOptionDto);
         return Ok();
     }
 

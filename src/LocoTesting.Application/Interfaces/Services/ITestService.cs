@@ -20,4 +20,5 @@ public interface ITestService
         where T : class
         where TDto : class;
     Task<List<QuestionResponseDto>> GetQuestionsByTestIdAsync(int testId);
+    Task CreateAnswerOptionAsync(CreateAnswerOptionDto dto);
 }

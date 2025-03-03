@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LocoTesting.Application.Dtos.Option;
 using LocoTesting.Application.Dtos.Question;
 using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Services;
@@ -93,5 +94,16 @@ public class TestService : ITestService
             .Select(x => _mapper.Map<QuestionResponseDto>(x))
             .ToList();
         return questionDtos;
+    }
+
+    public async Task CreateAnswerOptionAsync(CreateAnswerOptionDto dto)
+    {
+        var isExists = await _unitOfWork.Options.IsTrueAnswerOptionExistsAsync(dto.QuestionId);
+        if(isExists && dto.IsCorrect)
+            throw new ArgumentException("True option already exists");
+            
+        var answer = _mapper.Map<AnswerOption>(dto);
+        await _unitOfWork.GetRepository<AnswerOption>().AddAsync(answer);
+        await _unitOfWork.SaveChangesAsync();
     }
 }
