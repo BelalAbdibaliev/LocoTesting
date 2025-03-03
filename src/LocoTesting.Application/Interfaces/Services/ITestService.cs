@@ -6,13 +6,16 @@ namespace LocoTesting.Application.Interfaces.Services;
 
 public interface ITestService
 {
-    Task<List<TestDto>> GetAllTestsAsync();
-    Task<List<QuestionResponseDto>?> GetAllQuestionsAsync(int testId);
-    Task<TestDto> AddTestAsync(CreateTestDto dto);
-    Task<QuestionResponseDto> AddQuestionAsync(CreateQuestionDto dto);
-    Task<AnswerOptionResponseDto> AddOptionAsync(CreateAnswerOptionDto dto);
-    Task DeleteTestAsync(int testId);
-    Task UpdateTestAsync(UpdateTestDto dto);
+    Task<TDto> GetByIdAsync<T, TDto>(int id)
+        where T: class
+        where TDto : class;
+    Task<IEnumerable<T>> GetAllAsync<T>()
+        where T : class;
+    Task CreateAsync<T, TDto>(TDto dto)
+        where T : class
+        where TDto: class;
+    Task DeleteAsync<T>(int id)
+        where T : class;
     Task UpdateEntityAsync<T, TDto>(TDto dto)
         where T : class
         where TDto : class;
