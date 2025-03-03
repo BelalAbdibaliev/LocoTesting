@@ -6,6 +6,4 @@ public interface IQuestionRepository
 {
     Task<List<Question>?> GetByTestIdAsync(int testId);
     Task<bool> IsExistsAsync(int id);
-    Task<Question?> CreateAsync(Question question);
-    Task UpdateAsync(Question question);
 }

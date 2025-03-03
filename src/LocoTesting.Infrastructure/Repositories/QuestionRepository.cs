@@ -23,24 +23,9 @@ public class QuestionRepository: IQuestionRepository
         
         return questions;
     }
-    
+
     public async Task<bool> IsExistsAsync(int id)
     {
         return await _dbContext.Questions.AnyAsync(t => t.Id == id);
-    }
-    
-    public async Task<Question?> CreateAsync(Question question)
-    {
-        await _dbContext.Questions.AddAsync(question);
-        await _dbContext.SaveChangesAsync();
-        
-        return await _dbContext.Questions
-            .Include(q => q.AnswerOptions)
-            .FirstAsync(q => q.Id == question.Id);
-    }
-
-    public async Task UpdateAsync(Question question)
-    {
-        _dbContext.Questions.Update(question);
     }
 }

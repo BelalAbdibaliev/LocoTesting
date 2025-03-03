@@ -14,14 +14,6 @@ public class OptionRepository: IOptionRepository
         _dbContext = dbContext;
     }
     
-    public async Task<AnswerOption?> CreateAsync(AnswerOption answerOption)
-    {
-        await _dbContext.AnswerOptions.AddAsync(answerOption);
-        await _dbContext.SaveChangesAsync();
-        
-        return await _dbContext.AnswerOptions.FirstAsync(a => a.Id == answerOption.Id);
-    }
-    
     public async Task<bool> IsTrueAnswerOptionExistsAsync(int questionId)
     {
         var answer = _dbContext.AnswerOptions
