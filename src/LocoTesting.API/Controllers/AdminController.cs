@@ -67,8 +67,8 @@ public class AdminController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        
-        await _testService.UpdateTestAsync(dto);
+
+        await _testService.UpdateEntityAsync<Test, UpdateTestDto>(dto);
         
         return Ok();
     }
