@@ -29,7 +29,7 @@ public class UserController : ControllerBase
     [Authorize]
     public async Task<ActionResult> GetAllQuestionsAsync([FromQuery] int testId)
     {
-        var questions = await _testService.GetAllAsync<Question>();
+        var questions = await _testService.GetQuestionsByTestIdAsync(testId);
         return Ok(questions);
     }
 }

@@ -19,4 +19,5 @@ public interface ITestService
     Task UpdateEntityAsync<T, TDto>(TDto dto)
         where T : class
         where TDto : class;
+    Task<List<QuestionResponseDto>> GetQuestionsByTestIdAsync(int testId);
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using LocoTesting.Application.Dtos.Question;
 using LocoTesting.Application.Interfaces;
 using LocoTesting.Application.Interfaces.Services;
+using LocoTesting.Domain.Entities;
 
 namespace LocoTesting.Application.Services;
 
@@ -82,5 +84,14 @@ public class TestService : ITestService
 
         await _unitOfWork.GetRepository<T>().UpdateAsync(entity);
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<List<QuestionResponseDto>> GetQuestionsByTestIdAsync(int testId)
+    {
+        var questions = await _unitOfWork.Questions.GetByTestIdAsync(testId);
+        List<QuestionResponseDto> questionDtos = questions
+            .Select(x => _mapper.Map<QuestionResponseDto>(x))
+            .ToList();
+        return questionDtos;
     }
 }
