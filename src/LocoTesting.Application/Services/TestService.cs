@@ -144,7 +144,30 @@ public class TestService : ITestService
 
     public async Task UpdateTestAsync(UpdateTestDto dto)
     {
-        await _unitOfWork.Tests.UpdateTestAsync(dto);
+        var test = await _unitOfWork.Tests.GetByIdAsync(dto.Id);
+        if (test == null)
+            throw new Exception("Test not found");
+
+        var testType = typeof(Test);
+        var dtoType = typeof(UpdateTestDto);
+
+        foreach (var dtoProperty in dtoType.GetProperties())
+        {
+            if (dtoProperty.Name == nameof(UpdateTestDto.Id)) 
+                continue;
+
+            var newValue = dtoProperty.GetValue(dto);
+            if (newValue == null) 
+                continue;
+
+            var entityProperty = testType.GetProperty(dtoProperty.Name);
+            if (entityProperty != null && entityProperty.CanWrite)
+            {
+                entityProperty.SetValue(test, newValue);
+            }
+        }
+
+        await _unitOfWork.Tests.UpdateTestAsync(test);
         await _unitOfWork.SaveChangesAsync();
     }
 }

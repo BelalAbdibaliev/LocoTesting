@@ -22,7 +22,7 @@ public class TestRepository: ITestRepository
         return tests;
     }
 
-    public async Task<Test?> GetTestByIdAsync(int id)
+    public async Task<Test?> GetByIdAsync(int id)
     {
         var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == id);
         
@@ -48,23 +48,8 @@ public class TestRepository: ITestRepository
         _dbContext.Tests.Remove(test);
     }
 
-    public async Task UpdateTestAsync(UpdateTestDto newValues)
+    public async Task UpdateTestAsync(Test test)
     {
-        var test = await _dbContext.Tests.FirstOrDefaultAsync(t => t.Id == newValues.Id);
-
-        var entry = _dbContext.Entry(test);
-        foreach (var property in typeof(UpdateTestDto).GetProperties())
-        {
-            var newValue = property.GetValue(newValues);
-            if (newValue != null)
-            {
-                if (property.Name == nameof(UpdateTestDto.Id))
-                    continue;
-                
-                var entityProperty = entry.Property(property.Name);
-                entityProperty.CurrentValue = newValue;
-                entityProperty.IsModified = true;
-            }
-        }
+        _dbContext.Tests.Update(test);
     }
 }
