@@ -33,6 +33,7 @@ public class AdminController : ControllerBase
     }
 
     [HttpPost("add-question")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddQuestionAsync([FromBody] CreateQuestionDto createQuestionDto)
     {
         if (!ModelState.IsValid)
