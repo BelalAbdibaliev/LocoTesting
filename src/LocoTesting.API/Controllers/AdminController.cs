@@ -21,9 +21,9 @@ public class AdminController : ControllerBase
         _testService = testService;
     }
 
-    [HttpPost("create")]
+    [HttpPost("create-test")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> AddAsync([FromBody] CreateTestDto createTestDto)
+    public async Task<ActionResult> AddTestAsync([FromBody] CreateTestDto createTestDto)
     {
         if (!ModelState.IsValid)
             return BadRequest();
@@ -32,8 +32,7 @@ public class AdminController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("addquestion")]
-    [Authorize(Roles = "Admin")]
+    [HttpPost("add-question")]
     public async Task<ActionResult> AddQuestionAsync([FromBody] CreateQuestionDto createQuestionDto)
     {
         if (!ModelState.IsValid)
@@ -43,7 +42,7 @@ public class AdminController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("addoption")]
+    [HttpPost("add-option")]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddOptionAsync([FromBody] CreateAnswerOptionDto createAnswerOptionDto)
     {
@@ -54,7 +53,7 @@ public class AdminController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("delete")]
+    [HttpDelete("delete-test")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteTestAsync(int id)
     {
