@@ -73,4 +73,15 @@ public class AdminController : ControllerBase
         
         return Ok();
     }
+
+    [HttpPatch("update-question")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateQuestionAsync([FromBody] UpdateQuestionDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+        await _testService.UpdateEntityAsync<Question, UpdateQuestionDto>(dto);
+        
+        return Ok();
+    }
 }
