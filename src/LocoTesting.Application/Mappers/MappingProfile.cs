@@ -16,6 +16,7 @@ public class MappingProfile : Profile
         CreateMap<Question, QuestionResponseDto>()
             .ForMember(dest => dest.AnswerOptions, opt => opt.MapFrom(src => src.AnswerOptions));
         CreateMap<AnswerOption, AnswerOptionResponseDto>();
+        CreateMap<UpdateQuestionDto, Question>();
         CreateMap<CreateAnswerOptionDto, AnswerOption>();
     }
 }
