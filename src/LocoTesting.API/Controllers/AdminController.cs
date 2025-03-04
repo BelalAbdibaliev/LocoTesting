@@ -61,6 +61,14 @@ public class AdminController : ControllerBase
         await _testService.DeleteAsync<Test>(id);
         return Ok();
     }
+    
+    [HttpDelete("delete-question")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteQuestionAsync(int id)
+    {
+        await _testService.DeleteAsync<Question>(id);
+        return Ok();
+    }
 
     [HttpPost("update-test")]
     [Authorize(Roles = "Admin")]
